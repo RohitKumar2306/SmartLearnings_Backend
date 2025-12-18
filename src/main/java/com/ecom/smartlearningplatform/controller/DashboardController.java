@@ -1,6 +1,8 @@
 package com.ecom.smartlearningplatform.controller;
 
+import com.ecom.smartlearningplatform.io.AdminDashboardResponse;
 import com.ecom.smartlearningplatform.io.StudentDashboardResponse;
+import com.ecom.smartlearningplatform.service.AdminDashboardService;
 import com.ecom.smartlearningplatform.service.DashboardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 public class DashboardController {
 
     private final DashboardService dashboardService;
+    private final AdminDashboardService adminDashboardService;
 
     @GetMapping("/student")
     @PreAuthorize("hasRole('STUDENT')")
@@ -24,5 +27,13 @@ public class DashboardController {
         String email = authentication.getName(); // set by Spring Security from JWT
         StudentDashboardResponse response = dashboardService.getStudentDashboard(email);
         return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/admin")
+    @PreAuthorize("hasRole('ADMIN')") // or PLATFORM_ADMIN depending on your roles
+    public ResponseEntity<AdminDashboardResponse> getAdminDashboard(Authentication authentication) {
+        String email = authentication.getName();
+        AdminDashboardResponse resp = adminDashboardService.getAdminDashboard(email);
+        return ResponseEntity.ok(resp);
     }
 }

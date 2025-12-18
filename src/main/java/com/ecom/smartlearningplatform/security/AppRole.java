@@ -18,7 +18,7 @@ public enum AppRole {
             QUIZZES_READ, QUIZZES_WRITE
     )),
 
-    ROLE_ORG_ADMIN(Set.of(
+    ROLE_ADMIN(Set.of(
             DASHBOARD_READ,
             COURSES_READ, COURSES_WRITE,
             QUIZZES_READ, QUIZZES_WRITE,
