@@ -46,7 +46,7 @@ public class DashboardServiceImpl implements DashboardService {
         List<CourseEnrollmentEntity> enrollments = courseEnrollmentRepository.findByUserOrderByUpdatedAtDesc(userEntity);
 
         ContinueLearningCard continueLearningCard = null;
-        if (enrollments.isEmpty()) {
+        if (!enrollments.isEmpty()) {
             CourseEnrollmentEntity latest = enrollments.get(0);
             continueLearningCard = ContinueLearningCard
                     .builder()
